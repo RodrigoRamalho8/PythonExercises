@@ -10,4 +10,4 @@ for i in range(1,listlen+1):
 sumList = sum(randomList)
 result = sumList/len(randomList)
 
-print(f'Our list {randomList} have {len(randomList)} element/s resulting in: {result}')
+print(f'Our list {randomList} have {len(randomList)} element/s resulting in: {result:.2f}')
