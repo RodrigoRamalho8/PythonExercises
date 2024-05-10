@@ -20,16 +20,32 @@ class Student():
         """)
         self.connection.commit()  
 
+    def getStudents():
+        connection = sqlite3.connect('students.db')
+        cursor = connection.cursor()
+        cursor.execute("""
+        SELECT * FROM students
+        """)
+        rows = cursor.fetchall()
+        for i in rows:
+            print(f'ID: {i[0]}\nName: {i[1]}\nAge: {i[2]} ')
+        connection.commit()
+        connection.close()
 
 
     def insertStudent(self):              
         self.cursor.execute("""
-        INSERT INTO students VALUES
-        (NULL,'{}',{})
+        INSERT INTO students (nome, idade)
+        VALUES ('{}',{})
         """.format(self.nome, self.idade))
+        #A partir daqui
+        # sql =  "INSERT INTO students (nome) VALUES (%s)"
+        # values = (self.nome)
+        # print(values)
+        # self.cursor.execute(sql, values)
         self.connection.commit()
         self.connection.close()
-        studentsList.append(Student.matricula.value())          
+        #studentsList.append(Student.matricula.value())          
 
     def getMatricula(self):
         if self.matricula < 1:
