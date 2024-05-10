@@ -1,21 +1,39 @@
 import sqlite3
-studentsList = []
+from datetime import date
 class Student():
     
-    def __init__(self, nome, idade):
-        self.matricula = -1
-        self.nome = nome
-        self.idade = idade        
+    def __init__(self, name, birthdate):
+        self.name = name
+        self.birthdate = birthdate
+        self.age = self.getAge()
+        self.registerDate = str(date.today().strftime("%m/%d/%Y").replace("-", "/"))      
         self.connection = sqlite3.connect('students.db')
         self.cursor = self.connection.cursor()
+        self.createTable()
+
+    def getAge(self):
+        print("Hello1")
+        today = date.today()
+        # self.cursor.execute("""
+        # SELECT bithdate FROM students
+        # WHERE name = '{}'
+        # """).format(name)
+        birthyear = self.birthdate.split()
+        print(birthyear)
+        print(birthyear[0][6:])
+        self.age = today.year - int(birthyear[0][6:])
+        return self.age
+        
 
 
     def createTable(self):
         self.cursor.execute("""
         CREATE TABLE IF NOT EXISTS students(
-        matricula INTEGER PRIMARY KEY,
-        nome VARCHAR(32),
-        idade INTEGER
+        id INTEGER PRIMARY KEY,
+        name VARCHAR(32),
+        age INTEGER,
+        birthdate TEXT,
+        registerDate TEXT
         )
         """)
         self.connection.commit()  
@@ -28,35 +46,31 @@ class Student():
         """)
         rows = cursor.fetchall()
         for i in rows:
-            print(f'ID: {i[0]}\nName: {i[1]}\nAge: {i[2]} ')
+            print(f'ID: {i[0]}\nName: {i[1]}\nAge: {i[2]}\nBirthdate: {i[3]}\nRegister date: {i[4]} ')
         connection.commit()
         connection.close()
 
 
-    def insertStudent(self):              
-        self.cursor.execute("""
-        INSERT INTO students (nome, idade)
-        VALUES ('{}',{})
-        """.format(self.nome, self.idade))
-        #A partir daqui
-        # sql =  "INSERT INTO students (nome) VALUES (%s)"
-        # values = (self.nome)
-        # print(values)
-        # self.cursor.execute(sql, values)
-        self.connection.commit()
-        self.connection.close()
-        #studentsList.append(Student.matricula.value())          
+    def insertStudent(self):
+        connection = self.connection
+        cursor = connection.cursor()
+        cursor.execute("""
+        INSERT INTO students (name, age, birthdate, registerDate)
+        VALUES ('{}',{},'{}','{}')
+        """.format(self.name, self.age, self.birthdate, self.registerDate))
+        connection.commit()
+        connection.close()          
 
     def getMatricula(self):
         if self.matricula < 1:
             self.cursor.execute("""
-            SELECT matricula FROM students
+            SELECT id FROM students
             WHERE nome = {}
-            """).format(self.nome)
+            """).format(self.name)
             result =self.cursor.fetchone()
             for i in result:
                 print(i)
-            self.matricula = result[0]
+            self.id = result[0]
         
-        return self.matricula
+        return self.id
     

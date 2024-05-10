@@ -1,43 +1,35 @@
 from tkinter import *
 from tkinter import messagebox
+from tkcalendar import Calendar, DateEntry
 from classStudent import Student
-
-
-
-
-
 
 root = Tk()
 root.geometry("500x500")
 root.title("Cadastro")
 
-primeiroNome = Label(root,text="Primeiro nome: ")
-primeiroNome.grid(column=0, row=0)
-primeiroNomeEntrada = Entry(root)
-primeiroNomeEntrada.grid(column=1, row=0)
+fullName = Label(root,text="Full name: ")
+fullName.grid(column=0, row=0)
+fullNameEntrada = Entry(root)
+fullNameEntrada.grid(column=1, row=0)
 
-lblIdade=Label(root, text="Idade: ")
-idadeEntrada = Entry(root)
-lblIdade.grid(column=0, row=3)
-idadeEntrada.grid(column=1, row=3)
-
-pegaMatricula=Label(root, text="Nome para recuperar a matricula: ")
-pegaMatricula.grid(column=0, row=8)
-matriculaEntrada = Entry(root)
-matriculaEntrada.grid(column=1, row=9)
+calendar = Label(root, text="Birth date") 
+calendar.grid(column=0, row=3)
+birthDateEntry = DateEntry(root, width=12,background='darkblue', foreground='white', borderwidth=2)
+birthDateEntry.grid(column=1, row=3)
 
 
 def onClickGetMatricula():
     Student.getStudents()  
 
 def onClickCadastro():
-    try:
-        student = Student(primeiroNomeEntrada.get(), idadeEntrada.get())
-        student.createTable()
-        student.insertStudent()
-        messagebox.showinfo("Retorno", f'Cadastro realizado com sucesso, {primeiroNomeEntrada.get()}')
+    student = Student(fullNameEntrada.get(), birthDateEntry.get_date().strftime("%m/%d/%Y").replace("-", "/"))
+    #student.createTable()
+    student.insertStudent()
+    messagebox.showinfo("Retorno", f'Successfully registered, {fullNameEntrada.get()}')
+    """ try:
+        
     except:
-        messagebox.showerror("Retorno", f'Não foi possível realizar o cadastro')
+        messagebox.showerror("Error", f'Unable to register') """
     
     
     
@@ -46,7 +38,7 @@ botaoSair = Button(root, text="Sair", command=root.destroy)
 botaoSair.grid(column=0, row=4)
 botaoEnviar = Button(root, text="Cadastrar", command=onClickCadastro)
 botaoEnviar.grid(column=1, row=4)
-botaoMatricula = Button(root, text="Matrícula", command = onClickGetMatricula)
-botaoMatricula.grid(column=2, row=10)
+botaoMatricula = Button(root, text="Pesquisar alunos", command = onClickGetMatricula)
+botaoMatricula.grid(column=2, row=4)
 
 root.mainloop()
