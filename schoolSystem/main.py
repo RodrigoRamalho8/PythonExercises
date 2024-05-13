@@ -16,7 +16,7 @@ fullNameEntrada.place(relx = 0.61, rely=0.4,anchor=CENTER)
 
 calendar = Label(root, text="Birth date",font = ("Copperplate Gothic Light", 10), background="gray")
 calendar.place(relx = 0.4, rely=0.45,anchor=CENTER)
-birthDateEntry = DateEntry(root, width=12,background='darkblue', foreground='white', borderwidth=2,font = ("Copperplate Gothic Light", 10) )
+birthDateEntry = DateEntry(root, width=12,background='darkblue', foreground='white', borderwidth=2,font = ("Copperplate Gothic Light", 10),date_pattern='mm/dd/yyyy')
 birthDateEntry.place(relx = 0.61, rely = 0.45, width="126",anchor=CENTER)
 
 
