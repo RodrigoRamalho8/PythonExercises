@@ -12,15 +12,8 @@ class Student():
         self.createTable()
 
     def getAge(self):
-        print("Hello1")
         today = date.today()
-        # self.cursor.execute("""
-        # SELECT bithdate FROM students
-        # WHERE name = '{}'
-        # """).format(name)
         birthyear = self.birthdate.split()
-        print(birthyear)
-        print(birthyear[0][6:])
         self.age = today.year - int(birthyear[0][6:])
         return self.age
         
