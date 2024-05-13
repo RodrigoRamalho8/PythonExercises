@@ -5,20 +5,16 @@ from classStudent import Student
 
 root = Tk()
 root.geometry("500x500")
-root.title("Cadastro")
+root.title("Register window")
 
 fullName = Label(root,text="Full name: ")
-#fullName.grid(column=0, row=0)
 fullName.place(relx = 0.4, rely=0.4,anchor=CENTER)
 fullNameEntrada = Entry(root)
-fullNameEntrada.grid(column=1, row=0)
 fullNameEntrada.place(relx = 0.6, rely=0.4,anchor=CENTER)
 
-calendar = Label(root, text="Birth date") 
-calendar.grid(column=0, row=3)
+calendar = Label(root, text="Birth date")
 calendar.place(relx = 0.4, rely=0.45,anchor=CENTER)
 birthDateEntry = DateEntry(root, width=12,background='darkblue', foreground='white', borderwidth=2)
-birthDateEntry.grid(column=1, row=3)
 birthDateEntry.place(relx = 0.58, rely = 0.45, anchor=CENTER)
 
 
@@ -37,14 +33,11 @@ def onClickCadastro():
     
     
     
-botaoSair = Button(root, text="Sair", command=root.destroy)
-botaoSair.grid(column=0, row=4)
+botaoSair = Button(root, text="Exit", command=root.destroy)
 botaoSair.place(relx = 0.44, rely = 0.6, anchor=CENTER)
-botaoEnviar = Button(root, text="Cadastrar", command=onClickCadastro)
-botaoEnviar.grid(column=1, row=4)
+botaoEnviar = Button(root, text="Register", command=onClickCadastro)
 botaoEnviar.place(relx = 0.54, rely = 0.6, anchor=CENTER)
-botaoMatricula = Button(root, text="Pesquisar alunos", command = onClickGetMatricula)
-botaoMatricula.grid(column=2, row=4)
+botaoMatricula = Button(root, text="List students", command = onClickGetMatricula)
 botaoMatricula.place(relx = 0.49, rely = 0.7, anchor=CENTER)
 
 root.mainloop()
